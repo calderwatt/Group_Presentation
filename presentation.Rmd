@@ -1,7 +1,6 @@
 ---
-title: "Presentation title"
-subtitle: "Presentation subtitle (if any)"
-author: "Team name <br> Names of team members"
+title: "Proposal Presentation"
+author: "Test Name<br> Calder, Ruairidh, Aarzu, Erblina"
 institute: "University of Edinburgh"
 date: "`r Sys.Date()`"
 output:
@@ -18,7 +17,6 @@ output:
 ```{r load-packages, include = FALSE}
 # Add any additional packages you need to this chunk
 library(tidyverse)
-library(palmerpenguins)
 library(knitr)
 library(xaringanthemer)
 ```
@@ -36,63 +34,95 @@ knitr::opts_chunk$set(fig.retina = 3, dpi = 300, fig.width = 6, fig.asp = 0.618,
 style_xaringan(
   title_slide_background_image = "img/confetti.jpg"
 )
+top_500 <- read_csv(file = "data/top-500-movies.csv")
 ```
 
 class: center, middle
 
-## A statement of the overall goal / research question
+## How does opening weekend sales affect worldwide gross?
 
 ---
 
 class: inverse, center, middle
 
-# Section title
+# The Question
 
 ---
 
-# Hello World
+# How does opening weekend sales affect worldwide gross?
 
-- Click the `Knit` button to compile your presentation
+- Does high opening weekend sales (OWS) imply a high worldwide gross (WG)?
 
-- Make sure to commit and push all resulting files to your GitHub repo
+- Does genre affect the OWS/WG?
+
+- What about age rating?
+
+---
+
+# The Data
+- We are using a dataset of the top 500 movies by production budget.
+- The dataset was found at https://www.kaggle.com/datasets/e0d29b8ab6ddedf4b39e4804768915ed8b5eb73dcd68bc6ef5b76aae6bf4d0ff
+
+- The dataset was collected by scraping https://www.the-numbers.com/movie/budgets/all
+
+- Each observation is a film
+
+---
+# The Variables
+- `rank`: The ranking of the film by production budget.
+- `title`: The title of the film.
+- `url`: The link the film on the-numbers.com .
+- `release_date`: The date the film was released.
+- `production_cost`: The cost of producing the film (in USD).
+- `domestic_gross`: The gross of the film in the US (in USD).
+- `worldwide_gross`: The gross of the film worldwide (in USD).
+- `opening_weekend`: The money made from sales in the opening weekend (in USD).
+- `mpaa`: Age rating of the film.
+- `genre`: The genre of the film.
+- `theaters`: The maximum number of theaters showing the film at one time.
+- `runtime`: The runtime of the film.
+- `year`: The year the film released in.
+---
+
+# The Data
+
+
+``` {r data-glimpse, echo = FALSE}
+glimpse(top_500)
+
+```
 
 ---
 
 class: inverse, middle, center
 
-# Using xaringan
+# Data analysis plan
 
 ---
 
-# xaringan
+# Variables of Interest
 
-- The presentation is created using the `xaringan` package
-
-- Use `---` to separate slides and `--` for incremental builds
-
+- `rank`: We are going to use rank as an ID for each film, rather than how large its production budget was.
+- `opening_weekend`
+- `worldwide_gross`
 --
-
-- Like this
+- We might also use:
+- `mpaa` and `genre`
 
 ---
 
-# Layouts
+# Preliminary Data Analysis
 
-You can use plain text
+```{r box-plot-opening}
+ggplot(top_500,aes(x = opening_weekend)) +
+  geom_boxplot()
 
-- or bullet points
-
-.pull-left[
-or text in two columns $^*$
-]
-.pull-right[
-- like
-- this
-]
-
-.footnote[
-[*] And add footnotes
-]
+```
+--
+```{r box-plot-worldwide}
+ggplot(top_500, aes(x = worldwide_gross)) +
+  geom_boxplot()
+```
 
 ---
 
@@ -100,8 +130,8 @@ or text in two columns $^*$
 
 ```{r boring-analysis}
 # a boring analysis
-ave <- mean(cars$dist)
-print(ave)
+#ave <- mean(cars$dist)
+#print(ave)
 ```
 
 ---
@@ -111,17 +141,17 @@ print(ave)
 ```{r recode-species, echo = FALSE}
 # In this chunk I'm doing a bunch of analysis that I don't want to present 
 # in my slides. But I need the resulting data frame for a plot I want to present.
-iris_modified <- iris %>%
-  mutate(Species = fct_other(Species, keep = "setosa"))
+#iris_modified <- iris %>%
+  #mutate(Species = fct_other(Species, keep = "setosa"))
 ```
 
 ```{r plot-iris, echo = FALSE}
 # Code hidden with echo = FALSE
 # Uses modified iris dataset from previous chunk
 # Play around with height and width until you're happy with the look
-ggplot(data = iris_modified, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
-  geom_point() + 
-  theme_minimal() # theme options: https://ggplot2.tidyverse.org/reference/ggtheme.html
+#ggplot(data = iris_modified, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
+  #geom_point() + 
+  #theme_minimal() # theme options: https://ggplot2.tidyverse.org/reference/ggtheme.html
 ```
 
 ---
@@ -136,9 +166,9 @@ ggplot(data = iris_modified, mapping = aes(x = Sepal.Width, y = Sepal.Length, co
 ```{r warning=FALSE, out.width="100%", fig.width=4, echo=FALSE}
 # see how I changed out.width and fig.width from defaults
 # to make the figure bigger
-ggplot(penguins, aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot() +
-  theme_minimal()
+#ggplot(penguins, aes(x = bill_length_mm, y = species, color = species)) +
+#  geom_boxplot() +
+  #theme_minimal()
 ```
 ]
 
@@ -149,7 +179,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = species, color = species)) +
 If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
 
 ```{r iris-table, echo = FALSE}
-kable(head(iris), format = "html")
+#kable(head(iris), format = "html")
 ```
 
 ---
