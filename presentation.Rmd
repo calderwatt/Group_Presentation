@@ -27,21 +27,18 @@ knitr::opts_chunk$set(fig.retina = 3, dpi = 300, fig.width = 6, fig.asp = 0.618,
 ```
 
 ```{r load-data, include=FALSE}
-# Load your data here
+top_500 <- read_csv(file = "data/top-500-movies.csv", col_types = cols(
+  mpaa = col_factor(),
+  genre = col_factor()
+))
 ```
 
 ```{r include=FALSE}
 style_xaringan(
   title_slide_background_image = "img/confetti.jpg"
 )
-top_500 <- read_csv(file = "data/top-500-movies.csv")
 ```
 
-class: center, middle
-
-## How does opening weekend sales affect worldwide gross?
-
----
 
 class: inverse, center, middle
 
@@ -49,6 +46,11 @@ class: inverse, center, middle
 
 ---
 
+class: center, middle
+
+## How does opening weekend sales affect worldwide gross?
+
+---
 # How does opening weekend sales affect worldwide gross?
 
 - Does high opening weekend sales (OWS) imply a high worldwide gross (WG)?
@@ -61,9 +63,9 @@ class: inverse, center, middle
 
 # The Data
 - We are using a dataset of the top 500 movies by production budget.
-- The dataset was found at https://www.kaggle.com/datasets/e0d29b8ab6ddedf4b39e4804768915ed8b5eb73dcd68bc6ef5b76aae6bf4d0ff
+- The dataset was found [on Kaggle](https://www.kaggle.com/datasets/e0d29b8ab6ddedf4b39e4804768915ed8b5eb73dcd68bc6ef5b76aae6bf4d0ff)
 
-- The dataset was collected by scraping https://www.the-numbers.com/movie/budgets/all
+- The dataset was collected by scraping [The Numbers website](https://www.the-numbers.com/movie/budgets/all)
 
 - Each observation is a film
 
