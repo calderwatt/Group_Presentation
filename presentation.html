@@ -36,11 +36,6 @@ class: center, middle, inverse, title-slide
 
 
 
-class: center, middle
-
-## How does opening weekend sales affect worldwide gross?
-
----
 
 class: inverse, center, middle
 
@@ -48,6 +43,11 @@ class: inverse, center, middle
 
 ---
 
+class: center, middle
+
+## How does opening weekend sales affect worldwide gross?
+
+---
 # How does opening weekend sales affect worldwide gross?
 
 - Does high opening weekend sales (OWS) imply a high worldwide gross (WG)?
@@ -83,26 +83,27 @@ class: inverse, center, middle
 - `year`: The year the film released in.
 ---
 
-# The Data
+# A glimpse of the data
 
 
 
 ```
-## Rows: 500
-## Columns: 13
-## $ rank            &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
-## $ release_date    &lt;date&gt; 2019-04-23, 2011-05-20, 2015-04-22, 2015-12-16, 2018-…
-## $ title           &lt;chr&gt; "Avengers: Endgame", "Pirates of the Caribbean: On Str…
-## $ url             &lt;chr&gt; "/movie/Avengers-Endgame-(2019)#tab=summary", "/movie/…
-## $ production_cost &lt;dbl&gt; 400000000, 379000000, 365000000, 306000000, 300000000,…
-## $ domestic_gross  &lt;dbl&gt; 858373000, 241071802, 459005868, 936662225, 678815482,…
-## $ worldwide_gross &lt;dbl&gt; 2797800564, 1045713802, 1395316979, 2064615817, 204835…
-## $ opening_weekend &lt;dbl&gt; 357115007, 90151958, 191271109, 247966675, 257698183, …
-## $ mpaa            &lt;fct&gt; PG-13, PG-13, PG-13, PG-13, PG-13, PG-13, PG-13, PG-13…
-## $ genre           &lt;fct&gt; Action, Adventure, Action, Adventure, Action, Adventur…
-## $ theaters        &lt;dbl&gt; 4662, 4164, 4276, 4134, 4474, 4362, 4051, 3929, NA, 44…
-## $ runtime         &lt;dbl&gt; 181, 136, 141, 136, 156, 167, 121, 148, NA, 142, 135, …
-## $ year            &lt;dbl&gt; 2019, 2011, 2015, 2015, 2018, 2007, 2017, 2015, 2023, …
+## # A tibble: 500 × 13
+##     rank release_date title    url   produ…¹ domes…² world…³ openi…⁴ mpaa  genre
+##    &lt;dbl&gt; &lt;date&gt;       &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;
+##  1     1 2019-04-23   Avenger… /mov…  4   e8  8.58e8  2.80e9  3.57e8 PG-13 Acti…
+##  2     2 2011-05-20   Pirates… /mov…  3.79e8  2.41e8  1.05e9  9.02e7 PG-13 Adve…
+##  3     3 2015-04-22   Avenger… /mov…  3.65e8  4.59e8  1.40e9  1.91e8 PG-13 Acti…
+##  4     4 2015-12-16   Star Wa… /mov…  3.06e8  9.37e8  2.06e9  2.48e8 PG-13 Adve…
+##  5     5 2018-04-25   Avenger… /mov…  3   e8  6.79e8  2.05e9  2.58e8 PG-13 Acti…
+##  6     6 2007-05-24   Pirates… /mov…  3   e8  3.09e8  9.61e8  1.15e8 PG-13 Adve…
+##  7     7 2017-11-13   Justice… /mov…  3   e8  2.29e8  6.56e8  9.38e7 PG-13 Acti…
+##  8     8 2015-10-06   Spectre  /mov…  3   e8  2.00e8  8.80e8  7.04e7 PG-13 Acti…
+##  9     9 2023-07-11   Mission… /mov…  2.9 e8  0       0      NA      NA    Acti…
+## 10    10 2019-12-18   Star Wa… /mov…  2.75e8  5.15e8  1.07e9  1.77e8 PG-13 Adve…
+## # … with 490 more rows, 3 more variables: theaters &lt;dbl&gt;, runtime &lt;dbl&gt;,
+## #   year &lt;dbl&gt;, and abbreviated variable names ¹​production_cost,
+## #   ²​domestic_gross, ³​worldwide_gross, ⁴​opening_weekend
 ```
 
 ---
@@ -125,37 +126,33 @@ class: inverse, middle, center
 ---
 
 # Preliminary Data Analysis
-
-
-```r
-ggplot(top_500,aes(x = opening_weekend)) +
-  geom_boxplot()
-```
-
-```
-## Warning: Removed 21 rows containing non-finite values (stat_boxplot).
-```
-
-&lt;img src="presentation_files/figure-html/box-plot-opening-1.png" width="80%" /&gt;
 --
 
-```r
-ggplot(top_500, aes(x = worldwide_gross)) +
-  geom_boxplot()
-```
 
-&lt;img src="presentation_files/figure-html/box-plot-worldwide-1.png" width="80%" /&gt;
+```
+## # A tibble: 4 × 2
+##   genre         n
+##   &lt;fct&gt;     &lt;int&gt;
+## 1 Action       11
+## 2 Adventure     6
+## 3 Musical       2
+## 4 Drama         1
+```
+--
+
+```
+## # A tibble: 2 × 2
+##   mpaa      n
+##   &lt;fct&gt; &lt;int&gt;
+## 1 PG-13    15
+## 2 PG        5
+```
 
 ---
 
-# Code
+# Useful statistics
 
-
-```r
-# a boring analysis
-#ave &lt;- mean(cars$dist)
-#print(ave)
-```
+Some useful statistics would be the mean WG by genre and age rating, as this could help answer the question of how the genre and age rating affect the WG.
 
 ---
 

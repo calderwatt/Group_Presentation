@@ -86,11 +86,11 @@ class: center, middle
 - `year`: The year the film released in.
 ---
 
-# The Data
+# A glimpse of the data
 
 
 ``` {r data-glimpse, echo = FALSE}
-glimpse(top_500)
+tibble(top_500)
 
 ```
 
@@ -114,27 +114,29 @@ class: inverse, middle, center
 ---
 
 # Preliminary Data Analysis
+--
 
-```{r box-plot-opening}
-ggplot(top_500,aes(x = opening_weekend)) +
-  geom_boxplot()
-
+```{r top-genres, echo = FALSE}
+top_500 %>%
+  arrange(desc(worldwide_gross)) %>%
+  slice(1:20) %>%
+  group_by(genre) %>%
+  summarise(n = n())
 ```
 --
-```{r box-plot-worldwide}
-ggplot(top_500, aes(x = worldwide_gross)) +
-  geom_boxplot()
+```{r top-age-rating, echo = FALSE}
+top_500 %>%
+  arrange(desc(worldwide_gross)) %>%
+  slice(1:20) %>%
+  group_by(mpaa) %>%
+  summarise(n = n())
 ```
 
 ---
 
-# Code
+# Useful statistics
 
-```{r boring-analysis}
-# a boring analysis
-#ave <- mean(cars$dist)
-#print(ave)
-```
+Some useful statistics would be the mean WG by genre and age rating, as this could help answer the question of how the genre and age rating affect the WG.
 
 ---
 
