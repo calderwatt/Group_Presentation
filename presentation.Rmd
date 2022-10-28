@@ -1,6 +1,6 @@
 ---
 title: "Proposal Presentation"
-author: "Test Name<br> Calder, Ruairidh, Aarzu, Erblina"
+author: "Group Team 3<br> Calder, Ruairidh, Aarzu, Erblina"
 institute: "University of Edinburgh"
 date: "`r Sys.Date()`"
 output:
@@ -112,10 +112,12 @@ class: inverse, middle, center
 # Variables of Interest
 
 - `rank`: We are going to use rank as an ID for each film, rather than how large its production budget was.
+
+These can be used to compare how the opening weekend sales affect the worldwide gross.
 - `opening_weekend`
 - `worldwide_gross`
 
-- We might also use:
+- We also use these to see how the age rating and genre affect both the opening weekend and the worldwide gross:
 - `mpaa` and `genre`
 
 ---
